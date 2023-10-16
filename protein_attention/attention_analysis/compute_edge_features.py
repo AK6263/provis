@@ -11,7 +11,8 @@ from collections import defaultdict
 import numpy as np
 import torch
 from tqdm import tqdm
-
+from torchsummary import summary
+import sys
 
 def compute_mean_attention(model,
                            n_layers,
@@ -25,7 +26,9 @@ def compute_mean_attention(model,
                            max_seq_len=None,
                            min_attn=0):
     model.eval()
-
+    # print(model)
+    # sys.exit()
+    
     with torch.no_grad():
 
         # Dictionary that maps feature_name to array of shape (n_layers, n_heads), containing
@@ -299,6 +302,8 @@ if __name__ == "__main__":
             features.append(ContactMapFeature())
         else:
             raise ValueError(f"Invalid feature name: {feature_name}")
+    
+    print(features)
 
     feature_to_weighted_sum, weight_total = compute_mean_attention(
         model,

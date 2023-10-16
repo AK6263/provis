@@ -1,0 +1,672 @@
+(base) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ conda activate provis
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ cd data
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ ls
+binding_sites  protein_modifications
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ wget http://s3.amazonaws.com/songlabdata/proteindata/data_pytorch/secondary_structure.tar.g
+z && tar -xvf secondary_structure.tar.gz && rm secondary_structure.tar.gz
+--2023-10-12 14:55:07--  http://s3.amazonaws.com/songlabdata/proteindata/data_pytorch/secondary_structure.tar.gz
+Resolving s3.amazonaws.com (s3.amazonaws.com)... 16.182.38.104, 52.217.201.248, 54.231.172.96, ...
+Connecting to s3.amazonaws.com (s3.amazonaws.com)|16.182.38.104|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 251794897 (240M) [application/x-tar]
+Saving to: ‘secondary_structure.tar.gz’
+
+secondary_structure.tar.gz                 100%[======================================================================================>] 240.13M  1.70MB/s
+    in 75s
+
+2023-10-12 14:56:22 (3.20 MB/s) - ‘secondary_structure.tar.gz’ saved [251794897/251794897]
+
+secondary_structure/
+secondary_structure/secondary_structure_train.lmdb/
+secondary_structure/secondary_structure_train.lmdb/data.mdb
+secondary_structure/secondary_structure_train.lmdb/lock.mdb
+secondary_structure/secondary_structure_valid.lmdb/
+secondary_structure/secondary_structure_valid.lmdb/data.mdb
+secondary_structure/secondary_structure_valid.lmdb/lock.mdb
+secondary_structure/secondary_structure_cb513.lmdb/
+secondary_structure/secondary_structure_cb513.lmdb/data.mdb
+secondary_structure/secondary_structure_cb513.lmdb/lock.mdb
+secondary_structure/secondary_structure_ts115.lmdb/
+secondary_structure/secondary_structure_ts115.lmdb/data.mdb
+secondary_structure/secondary_structure_ts115.lmdb/lock.mdb
+secondary_structure/secondary_structure_casp12.lmdb/
+secondary_structure/secondary_structure_casp12.lmdb/data.mdb
+secondary_structure/secondary_structure_casp12.lmdb/lock.mdb
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ time wget http://s3.amazonaws.com/songlabdata/proteindata/data_pytorch/proteinnet.tar.gz &&
+ tar -xvf proteinnet.tar.gz && rm proteinnet.tar.gz
+--2023-10-12 14:58:38--  http://s3.amazonaws.com/songlabdata/proteindata/data_pytorch/proteinnet.tar.gz
+Resolving s3.amazonaws.com (s3.amazonaws.com)... 54.231.130.176, 54.231.165.192, 52.216.178.77, ...
+Connecting to s3.amazonaws.com (s3.amazonaws.com)|54.231.130.176|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 464501179 (443M) [application/x-tar]
+Saving to: ‘proteinnet.tar.gz’
+
+proteinnet.tar.gz                          100%[======================================================================================>] 442.98M   719KB/s
+    in 44m 27s
+
+2023-10-12 15:43:06 (170 KB/s) - ‘proteinnet.tar.gz’ saved [464501179/464501179]
+
+
+real    44m27.926s
+user    0m2.059s
+sys     0m9.321s
+proteinnet/
+proteinnet/proteinnet_test.lmdb/
+proteinnet/proteinnet_test.lmdb/data.mdb
+proteinnet/proteinnet_test.lmdb/lock.mdb
+proteinnet/proteinnet_valid.lmdb/
+proteinnet/proteinnet_valid.lmdb/data.mdb
+proteinnet/proteinnet_valid.lmdb/lock.mdb
+proteinnet/proteinnet_train.lmdb/
+proteinnet/proteinnet_train.lmdb/data.mdb
+proteinnet/proteinnet_train.lmdb/lock.mdb
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ ls
+binding_sites  protein_modifications  proteinnet  secondary_structure
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ cat /proc/sys/fs/inotify/max_user_watches
+8192
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ ls -l * | wc -l
+23
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ ls -l *
+binding_sites:
+total 8
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Oct 12 14:51 binding_site_train.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Oct 12 14:51 binding_site_valid.lmdb
+
+protein_modifications:
+total 8
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Oct 12 14:51 protein_modification_train.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Oct 12 14:51 protein_modification_valid.lmdb
+
+proteinnet:
+total 12
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 proteinnet_test.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 proteinnet_train.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 proteinnet_valid.lmdb
+
+secondary_structure:
+total 20
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure_casp12.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure_cb513.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure_train.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure_ts115.lmdb
+drwxr-xr-x 2 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure_valid.lmdb
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ ls -l ../*
+
+-rw-r--r-- 1 abhay.kshirsagar ihub 1651 Oct 12 14:51 ../attribution.txt
+-rwxr-xr-x 1 abhay.kshirsagar ihub 5159 Oct 12 14:51 ../CODE_OF_CONDUCT.md
+-rw-r--r-- 1 abhay.kshirsagar ihub  140 Oct 12 14:51 ../CODEOWNERS
+-rw-r--r-- 1 abhay.kshirsagar ihub 1540 Oct 12 14:51 ../LICENSE
+-rw-r--r-- 1 abhay.kshirsagar ihub 5651 Oct 12 14:51 ../README.md
+-rw-r--r-- 1 abhay.kshirsagar ihub 1418 Oct 12 15:22 ../replication.ipynb
+-rw-r--r-- 1 abhay.kshirsagar ihub  143 Oct 12 14:51 ../requirements.txt
+-rw-r--r-- 1 abhay.kshirsagar ihub  400 Oct 12 14:51 ../SECURITY.md
+-rw-r--r-- 1 abhay.kshirsagar ihub  273 Oct 12 14:51 ../setup.py
+
+../data:
+total 16
+drwxr-xr-x 4 abhay.kshirsagar ihub 4096 Oct 12 14:51 binding_sites
+drwxr-xr-x 4 abhay.kshirsagar ihub 4096 Oct 12 14:51 protein_modifications
+drwxr-xr-x 5 abhay.kshirsagar ihub 4096 Sep  4  2019 proteinnet
+drwxr-xr-x 7 abhay.kshirsagar ihub 4096 Sep  4  2019 secondary_structure
+
+../images:
+total 268
+-rw-r--r-- 1 abhay.kshirsagar ihub 146150 Oct 12 14:51 vis3d_binding_sites.png
+-rw-r--r-- 1 abhay.kshirsagar ihub 123667 Oct 12 14:51 vis3d_contact_map.png
+
+../notebooks:
+total 12
+-rw-r--r-- 1 abhay.kshirsagar ihub 8638 Oct 12 14:51 provis.ipynb
+
+../protein_attention:
+total 28
+drwxr-xr-x 3 abhay.kshirsagar ihub  4096 Oct 12 14:51 attention_analysis
+-rw-r--r-- 1 abhay.kshirsagar ihub 13066 Oct 12 14:51 datasets.py
+-rw-r--r-- 1 abhay.kshirsagar ihub     0 Oct 12 14:51 __init__.py
+drwxr-xr-x 3 abhay.kshirsagar ihub  4096 Oct 12 14:51 probing
+-rw-r--r-- 1 abhay.kshirsagar ihub  1483 Oct 12 14:51 utils.py
+
+../reports:
+total 8
+drwxr-xr-x 44 abhay.kshirsagar ihub 4096 Oct 12 14:51 attention_analysis
+drwxr-xr-x  2 abhay.kshirsagar ihub 4096 Oct 12 14:51 probing
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ find . -maxdepth 1 -type d | while read -r dir
+> do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done
+.:      24
+./proteinnet:   6
+./binding_sites:        4
+./protein_modifications:        4
+./secondary_structure:  10
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/data$ cd ..
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ find . -maxdepth 1 -type d | while read -r dir
+> do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done
+.:      306
+./protein_attention:    32
+./images:       2
+./.git: 30
+./reports:      207
+./notebooks:    1
+./data: 24
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ cat /proc/sys/fs/inotify/max_user_watches
+8192
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ nvidia-smi
+Thu Oct 12 16:31:03 2023
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 510.47.03    Driver Version: 510.47.03    CUDA Version: 11.6     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:52:00.0 Off |                  N/A |
+|  0%   29C    P8    14W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA GeForce ...  On   | 00000000:D1:00.0 Off |                  N/A |
+|  0%   28C    P8    15W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ cat /proc/sys/fs/inotify/max_user_watches
+8192
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ nvim /etc/sysctl.conf
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ sudo nvim /etc/sysctl.conf
+[sudo] password for abhay.kshirsagar:
+Sorry, try again.
+[sudo] password for abhay.kshirsagar:
+abhay.kshirsagar is not in the sudoers file.  This incident will be reported.
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis$ cd protein_attention/attention_analysis
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ ls
+background.py             features.py  report_aa_correlations.py         report_edge_features.py  scripts
+compute_edge_features.py  __init__.py  report_edge_features_combined.py  report_top_heads.py
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Downloading: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 361/361 [00:00<00:00, 978kB/s]
+Downloading: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████| 1.68G/1.68G [37:27<00:00, 749kB/s]
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ ls
+background.py  compute_edge_features.py  features.py  __init__.py  __pycache__  report_aa_correlations.py  report_edge_features_combined.py  report_edge_f
+eatures.py  report_top_heads.py  scripts
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+True
+Segmentation fault (core dumped)
+(failed reverse-i-search)`echo $CUDA_': git clone https://github.com/THGLab/sidechainnet; cd sid^Chainnet; pip install -e . ;cd ..; git clone https://gith
+ub.com/THGLab/int2cart; cd int2cart ;pip install
+ -e . ; pip install pyyaml; cd ..
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ echo $CUDA_VISIBLE_DEVICES
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ echo $CUDA_VISIBLE_DEVICE
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ nvidia-smi
+Thu Oct 12 20:32:56 2023
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 510.47.03    Driver Version: 510.47.03    CUDA Version: 11.6     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:52:00.0 Off |                  N/A |
+|  0%   30C    P8    14W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA GeForce ...  On   | 00000000:D1:00.0 Off |                  N/A |
+|  0%   31C    P8    15W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ tmux capture-pane -pS - > tmux-buffer.txt
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ rm tmux-buffer.txt
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ echo $CUDA_VISIBLE_DEVICES
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0,1
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+prot_bert
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ htop
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0,1; sh scripts/compute_all_fea
+tures_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0,1; sh scripts/compute_all_fea
+tures_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Segmentation fault (core dumped)
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ nvidia-smi
+Thu Oct 12 20:42:24 2023
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 510.47.03    Driver Version: 510.47.03    CUDA Version: 11.6     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:52:00.0 Off |                  N/A |
+|  0%   30C    P8    14W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA GeForce ...  On   | 00000000:D1:00.0 Off |                  N/A |
+|  0%   31C    P8    15W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ rm tmux-buffer.txt ^C
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ nvidia-smi -L
+GPU 0: NVIDIA GeForce RTX 3080 Ti (UUID: GPU-7e32f4b1-6e0e-f76c-6ef1-e590a438d4ae)
+GPU 1: NVIDIA GeForce RTX 3080 Ti (UUID: GPU-9c5a9fb9-55b8-a62a-7350-f051b89757cb)
+(failed reverse-i-search)`echo $C': git clone https://github.com/THGLab/sidechainnet; cd sid^Chainnet; pip install -e . ;cd ..; git clone https://github.c
+om/THGLab/int2cart; cd int2cart ;pip install -e . ; pip install pyyaml; cd ..
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ echo $CUDA_VISIBLE_DEVICES
+0,1
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ conda list | grep 'torch\|sentence\|cuda'
+sentencepiece             0.1.99                   pypi_0    pypi
+torch                     1.4.0                    pypi_0    pypi
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ pip install sentencepiece==0.1.91
+Collecting sentencepiece==0.1.91
+  Downloading sentencepiece-0.1.91-cp38-cp38-manylinux1_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 3.3 MB/s eta 0:00:00
+Installing collected packages: sentencepiece
+  Attempting uninstall: sentencepiece
+    Found existing installation: sentencepiece 0.1.99
+    Uninstalling sentencepiece-0.1.99:
+      Successfully uninstalled sentencepiece-0.1.99
+Successfully installed sentencepiece-0.1.91
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0,1; sh scripts/compute_all_fea
+tures_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 81.0/81.0 [00:00<00:00, 277kB/s]
+Downloading: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████| 112/112 [00:00<00:00, 333kB/s]
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████| 86.0/86.0 [00:00<00:00, 289kB/s]
+Layers: 30
+Heads: 16
+Loading dataset
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:04<00:00, 1200.07it/s]
+  0%|                                                                                                                            | 0/5000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "compute_edge_features.py", line 303, in <module>
+    feature_to_weighted_sum, weight_total = compute_mean_attention(
+  File "compute_edge_features.py", line 40, in compute_mean_attention
+    attns = get_attention(model,
+  File "compute_edge_features.py", line 114, in get_attention
+    attns = model(inputs)[-1]
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 801, in forward
+    encoder_outputs = self.encoder(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 422, in forward
+    layer_outputs = layer_module(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 384, in forward
+    self_attention_outputs = self.attention(hidden_states, attention_mask, head_mask)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 329, in forward
+    self_outputs = self.self(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 232, in forward
+    mixed_query_layer = self.query(hidden_states)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/linear.py", line 87, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/functional.py", line 1372, in linear
+    output = input.matmul(weight.t())
+RuntimeError: CUDA error: CUBLAS_STATUS_EXECUTION_FAILED when calling `cublasSgemm( handle, opa, opb, m, n, k, &alpha, a, lda, b, ldb, &beta, c, ldc)`
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ nvcc --version
+
+Command 'nvcc' not found, but can be installed with:
+
+apt install nvidia-cuda-toolkit
+Please ask your administrator.
+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ /usr/local/cuda/bin/nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Thu_Feb_10_18:23:41_PST_2022
+Cuda compilation tools, release 11.6, V11.6.112
+Build cuda_11.6.r11.6/compiler.30978841_0
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ module avail
+
+----------------------------------------------------------------- /opt/Modules/versions ------------------------------------------------------------------
+3.2.10
+
+------------------------------------------------------------ /opt/Modules/3.2.10/modulefiles -------------------------------------------------------------
+u18/amber/18                                       u18/fsl/6.0.5.2                                    u18/namd/3.0_alpha10
+u18/amber/18-plumed                                u18/gcc/8.4.0                                      u18/openblas/0.3.17
+u18/ambertools/20                                  u18/gcc/9.4.0                                      u18/openmpi/2.1.1-gcc5
+u18/ambertools/21                                  u18/gflags/2.2.2                                   u18/openmpi/3.1.6
+u18/aria2/1.35.0                                   u18/glog/0.5.0                                     u18/openmpi/4.0.1-cuda10
+u18/cmake/3.23.3                                   u18/go/1.17.8                                      u18/openmpi/4.0.7
+u18/cuda/10.0                                      u18/gromacs/2016.3                                 u18/openmpi/4.1.2
+u18/cuda/10.2                                      u18/gromacs/2016.3-plumed                          u18/openmpi/4.1.2-cuda11
+u18/cuda/11.6                                      u18/gromacs/2016.3-v2                              u18/plumed2/2.6.1
+u18/cuda/11.7                                      u18/gromacs/2021.4-plumed2                         u18/plumed2/2.8.0
+u18/cuda/8.0                                       u18/gromacs/2021.4-plumed2-avx512                  u18/plumed2/2.8.2
+u18/cuda/9.0                                       u18/gromacs/2021.5-plumed-avx512-ambertools-mmPBSA u18/python/3.10.2
+u18/cuda/9.2                                       u18/gromacs/2022                                   u18/python/3.11.2
+u18/cudnn/7.6.5-cuda-10.2                          u18/gromacs/2022.5-plumed-annfunc                  u18/python/3.7.4
+u18/cudnn/7.6.5-cuda-9.2                           u18/gromacs/2022-avx512                            u18/python/3.8.3
+u18/cudnn/7.6-cuda-10.0                            u18/lapack/3.11                                    u18/quantum.espresso/7.2
+u18/cudnn/8.3.2-cuda-11.5                          u18/leptonica/1.82.0                               u18/R/4.1.3
+u18/cudnn/8.3.3-cuda-10.2                          u18/matlab/R2022a                                  u18/singularity-ce/3.9.6
+u18/cudnn/8.4.0-cuda-11.6                          u18/matlab/R2023a                                  u18/TensorRT/8.4.0.6
+u18/exciting/fluorine                              u18/mkl/2018.0.128                                 u18/terraform/1.4.6
+u18/ffmpeg/5.0.1                                   u18/mumax/3.10                                     u18/tesseract/5.2.0
+u18/fftw/3.3.10                                    u18/namd/2.12                                      u18/use.own
+u18/freesurfer/7.2.0                               u18/namd/2.14                                      u18/vasp/6.1.0
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ module load u18/cud^C
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ nvidia-smi
+Thu Oct 12 20:58:04 2023
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 510.47.03    Driver Version: 510.47.03    CUDA Version: 11.6     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  On   | 00000000:52:00.0 Off |                  N/A |
+|  0%   33C    P8    14W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA GeForce ...  On   | 00000000:D1:00.0 Off |                  N/A |
+|  0%   31C    P8    15W / 350W |      1MiB / 12288MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Layers: 30
+Heads: 16
+^C^C^C^Z
+[1]+  Stopped                 sh scripts/compute_all_features_prot_bert.sh
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ ^C
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ ls
+background.py             features.py  __pycache__                report_edge_features_combined.py  report_top_heads.py
+compute_edge_features.py  __init__.py  report_aa_correlations.py  report_edge_features.py           scripts
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ sh scripts/compute_all_features_prot_bert.sh^C
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0; sh scripts/compute_all_featu
+res_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Layers: 30
+Heads: 16
+Loading dataset
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:04<00:00, 1181.65it/s]
+  0%|                                                                                                                            | 0/5000 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "compute_edge_features.py", line 303, in <module>
+    feature_to_weighted_sum, weight_total = compute_mean_attention(
+  File "compute_edge_features.py", line 40, in compute_mean_attention
+    attns = get_attention(model,
+  File "compute_edge_features.py", line 114, in get_attention
+    attns = model(inputs)[-1]
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 801, in forward
+    encoder_outputs = self.encoder(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 422, in forward
+    layer_outputs = layer_module(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 384, in forward
+    self_attention_outputs = self.attention(hidden_states, attention_mask, head_mask)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 329, in forward
+    self_outputs = self.self(
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/transformers/modeling_bert.py", line 232, in forward
+    mixed_query_layer = self.query(hidden_states)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 532, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/modules/linear.py", line 87, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/scratch/abhay/miniconda3/envs/provis/lib/python3.8/site-packages/torch/nn/functional.py", line 1372, in linear
+    output = input.matmul(weight.t())
+RuntimeError: CUDA error: CUBLAS_STATUS_EXECUTION_FAILED when calling `cublasSgemm( handle, opa, opb, m, n, k, &alpha, a, lda, b, ldb, &beta, c, ldc)`
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ conda install pytorch==1.13.1 pytorch-cuda=11.6 -c pytorch
+-c nvidia
+Collecting package metadata (current_repodata.json): done
+Solving environment: unsuccessful initial attempt using frozen solve. Retrying with flexible solve.
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /scratch/abhay/miniconda3/envs/provis
+
+  added / updated specs:
+    - pytorch-cuda=11.6
+    - pytorch==1.13.1
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    blas-1.0                   |              mkl           6 KB
+    cuda-11.6.1                |                0           1 KB  nvidia
+    cuda-cccl-11.6.55          |       hf6102b2_0         1.2 MB  nvidia
+    cuda-command-line-tools-11.6.2|                0           1 KB  nvidia
+    cuda-compiler-11.6.2       |                0           1 KB  nvidia
+    cuda-cudart-11.6.55        |       he381448_0         194 KB  nvidia
+    cuda-cudart-dev-11.6.55    |       h42ad0f4_0         1.0 MB  nvidia
+    cuda-cuobjdump-11.6.124    |       h2eeebcb_0         134 KB  nvidia
+    cuda-cupti-11.6.124        |       h86345e5_0        22.1 MB  nvidia
+    cuda-cuxxfilt-11.6.124     |       hecbf4f6_0         283 KB  nvidia
+    cuda-driver-dev-11.6.55    |                0          16 KB  nvidia
+    cuda-gdb-12.2.140          |                0         5.3 MB  nvidia
+    cuda-libraries-11.6.1      |                0           1 KB  nvidia
+    cuda-libraries-dev-11.6.1  |                0           2 KB  nvidia
+    cuda-memcheck-11.8.86      |                0         168 KB  nvidia
+    cuda-nsight-12.2.144       |                0       113.7 MB  nvidia
+    cuda-nsight-compute-12.2.2 |                0           1 KB  nvidia
+    cuda-nvcc-11.6.124         |       hbba6d2d_0        42.2 MB  nvidia
+    cuda-nvdisasm-12.2.140     |                0        47.9 MB  nvidia
+    cuda-nvml-dev-11.6.55      |       haa9ef22_0          65 KB  nvidia
+    cuda-nvprof-12.2.142       |                0         4.7 MB  nvidia
+    cuda-nvprune-11.6.124      |       he22ec0a_0          65 KB  nvidia
+    cuda-nvrtc-11.6.124        |       h020bade_0        17.1 MB  nvidia
+    cuda-nvrtc-dev-11.6.124    |       h249d397_0        16.8 MB  nvidia
+    cuda-nvtx-11.6.124         |       h0630a44_0          58 KB  nvidia
+    cuda-nvvp-12.2.142         |                0       114.5 MB  nvidia
+    cuda-runtime-11.6.1        |                0           1 KB  nvidia
+    cuda-samples-11.6.101      |       h8efea70_0           5 KB  nvidia
+    cuda-sanitizer-api-12.2.140|                0        16.8 MB  nvidia
+    cuda-toolkit-11.6.1        |                0           1 KB  nvidia
+    cuda-tools-11.6.1          |                0           1 KB  nvidia
+    cuda-visual-tools-11.6.1   |                0           1 KB  nvidia
+    gds-tools-1.7.2.10         |                0        41.0 MB  nvidia
+    libcublas-11.9.2.110       |       h5e84587_0       300.8 MB  nvidia
+    libcublas-dev-11.9.2.110   |       h5c901ab_0       310.9 MB  nvidia
+    libcufft-10.7.1.112        |       hf425ae0_0        93.6 MB  nvidia
+    libcufft-dev-10.7.1.112    |       ha5ce4c0_0       197.2 MB  nvidia
+    libcufile-1.7.2.10         |                0        1023 KB  nvidia
+    libcufile-dev-1.7.2.10     |                0          14 KB  nvidia
+    libcurand-10.3.3.141       |                0        51.6 MB  nvidia
+    libcurand-dev-10.3.3.141   |                0         449 KB  nvidia
+    libcusolver-11.3.4.124     |       h33c3c4e_0        87.0 MB  nvidia
+    libcusparse-11.7.2.124     |       h7538f96_0       160.9 MB  nvidia
+    libcusparse-dev-11.7.2.124 |       hbbe9722_0       328.9 MB  nvidia
+    libnpp-11.6.3.124          |       hd2722f0_0       118.4 MB  nvidia
+    libnpp-dev-11.6.3.124      |       h3c42840_0       115.6 MB  nvidia
+    libnvjpeg-11.6.2.124       |       hd473ad6_0         2.3 MB  nvidia
+    libnvjpeg-dev-11.6.2.124   |       hb5906b9_0         2.0 MB  nvidia
+    nsight-compute-2023.2.2.3  |                0       792.1 MB  nvidia
+    pytorch-1.13.1             |py3.8_cuda11.6_cudnn8.3.2_0        1.27 GB  pytorch
+    pytorch-cuda-11.6          |       h867d48c_1           3 KB  pytorch
+    pytorch-mutex-1.0          |             cuda           3 KB  pytorch
+    typing_extensions-4.7.1    |   py38h06a4308_0          55 KB
+    ------------------------------------------------------------
+                                           Total:        4.21 GB
+
+The following NEW packages will be INSTALLED:
+
+  blas               pkgs/main/linux-64::blas-1.0-mkl
+  cuda               nvidia/linux-64::cuda-11.6.1-0
+  cuda-cccl          nvidia/linux-64::cuda-cccl-11.6.55-hf6102b2_0
+  cuda-command-line~ nvidia/linux-64::cuda-command-line-tools-11.6.2-0
+  cuda-compiler      nvidia/linux-64::cuda-compiler-11.6.2-0
+  cuda-cudart        nvidia/linux-64::cuda-cudart-11.6.55-he381448_0
+  cuda-cudart-dev    nvidia/linux-64::cuda-cudart-dev-11.6.55-h42ad0f4_0
+  cuda-cuobjdump     nvidia/linux-64::cuda-cuobjdump-11.6.124-h2eeebcb_0
+  cuda-cupti         nvidia/linux-64::cuda-cupti-11.6.124-h86345e5_0
+  cuda-cuxxfilt      nvidia/linux-64::cuda-cuxxfilt-11.6.124-hecbf4f6_0
+  cuda-driver-dev    nvidia/linux-64::cuda-driver-dev-11.6.55-0
+  cuda-gdb           nvidia/linux-64::cuda-gdb-12.2.140-0
+  cuda-libraries     nvidia/linux-64::cuda-libraries-11.6.1-0
+  cuda-libraries-dev nvidia/linux-64::cuda-libraries-dev-11.6.1-0
+  cuda-memcheck      nvidia/linux-64::cuda-memcheck-11.8.86-0
+  cuda-nsight        nvidia/linux-64::cuda-nsight-12.2.144-0
+  cuda-nsight-compu~ nvidia/linux-64::cuda-nsight-compute-12.2.2-0
+  cuda-nvcc          nvidia/linux-64::cuda-nvcc-11.6.124-hbba6d2d_0
+  cuda-nvdisasm      nvidia/linux-64::cuda-nvdisasm-12.2.140-0
+  cuda-nvml-dev      nvidia/linux-64::cuda-nvml-dev-11.6.55-haa9ef22_0
+  cuda-nvprof        nvidia/linux-64::cuda-nvprof-12.2.142-0
+  cuda-nvprune       nvidia/linux-64::cuda-nvprune-11.6.124-he22ec0a_0
+  cuda-nvrtc         nvidia/linux-64::cuda-nvrtc-11.6.124-h020bade_0
+  cuda-nvrtc-dev     nvidia/linux-64::cuda-nvrtc-dev-11.6.124-h249d397_0
+  cuda-nvtx          nvidia/linux-64::cuda-nvtx-11.6.124-h0630a44_0
+  cuda-nvvp          nvidia/linux-64::cuda-nvvp-12.2.142-0
+  cuda-runtime       nvidia/linux-64::cuda-runtime-11.6.1-0
+  cuda-samples       nvidia/linux-64::cuda-samples-11.6.101-h8efea70_0
+  cuda-sanitizer-api nvidia/linux-64::cuda-sanitizer-api-12.2.140-0
+  cuda-toolkit       nvidia/linux-64::cuda-toolkit-11.6.1-0
+  cuda-tools         nvidia/linux-64::cuda-tools-11.6.1-0
+  cuda-visual-tools  nvidia/linux-64::cuda-visual-tools-11.6.1-0
+  gds-tools          nvidia/linux-64::gds-tools-1.7.2.10-0
+  intel-openmp       pkgs/main/linux-64::intel-openmp-2023.1.0-hdb19cb5_46305
+  libcublas          nvidia/linux-64::libcublas-11.9.2.110-h5e84587_0
+  libcublas-dev      nvidia/linux-64::libcublas-dev-11.9.2.110-h5c901ab_0
+  libcufft           nvidia/linux-64::libcufft-10.7.1.112-hf425ae0_0
+  libcufft-dev       nvidia/linux-64::libcufft-dev-10.7.1.112-ha5ce4c0_0
+  libcufile          nvidia/linux-64::libcufile-1.7.2.10-0
+  libcufile-dev      nvidia/linux-64::libcufile-dev-1.7.2.10-0
+  libcurand          nvidia/linux-64::libcurand-10.3.3.141-0
+  libcurand-dev      nvidia/linux-64::libcurand-dev-10.3.3.141-0
+  libcusolver        nvidia/linux-64::libcusolver-11.3.4.124-h33c3c4e_0
+  libcusparse        nvidia/linux-64::libcusparse-11.7.2.124-h7538f96_0
+  libcusparse-dev    nvidia/linux-64::libcusparse-dev-11.7.2.124-hbbe9722_0
+  libnpp             nvidia/linux-64::libnpp-11.6.3.124-hd2722f0_0
+  libnpp-dev         nvidia/linux-64::libnpp-dev-11.6.3.124-h3c42840_0
+  libnvjpeg          nvidia/linux-64::libnvjpeg-11.6.2.124-hd473ad6_0
+  libnvjpeg-dev      nvidia/linux-64::libnvjpeg-dev-11.6.2.124-hb5906b9_0
+  mkl                pkgs/main/linux-64::mkl-2023.1.0-h213fc3f_46343
+  nsight-compute     nvidia/linux-64::nsight-compute-2023.2.2.3-0
+  pytorch            pytorch/linux-64::pytorch-1.13.1-py3.8_cuda11.6_cudnn8.3.2_0
+  pytorch-cuda       pytorch/noarch::pytorch-cuda-11.6-h867d48c_1
+  pytorch-mutex      pytorch/noarch::pytorch-mutex-1.0-cuda
+  tbb                pkgs/main/linux-64::tbb-2021.8.0-hdb19cb5_0
+  typing_extensions  pkgs/main/linux-64::typing_extensions-4.7.1-py38h06a4308_0
+
+
+Proceed ([y]/n)?
+
+
+Downloading and Extracting Packages:
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+(provis) abhay.kshirsagar@gnode096:/scratch/abhay/provis/protein_attention/attention_analysis$ export CUDA_VISIBLE_DEVICES=0; sh scripts/compute_all_featu
+res_prot_bert.sh
+Namespace(dataset='proteinnet', exp_name='edge_features_contact_prot_bert', features=['contact_map'], max_seq_len=512, min_attn=0.3, model='bert', model_d
+ir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Layers: 30
+Heads: 16
+Loading dataset
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:04<00:00, 1099.29it/s]
+[<protein_attention.attention_analysis.features.ContactMapFeature object at 0x7f4aa4c4f940>]
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [14:09<00:00,  5.89it/s]
+Wrote to /scratch/abhay/provis/data/cache/edge_features_contact_prot_bert.pickle
+Namespace(dataset='protein_modifications', exp_name='edge_features_modifications_prot_bert', features=['protein_modifications'], max_seq_len=512, min_attn
+=0.3, model='bert', model_dir=None, model_version='prot_bert', no_cuda=False, num_sequences=5000, seed=123, shuffle=True)
+Layers: 30
+Heads: 16
+Loading dataset
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5000/5000 [00:00<00:00, 5597.80it/s]
+[<protein_attention.attention_analysis.features.ProteinModificationFeature object at 0x7f9ed00e3940>]
+ 15%|█████████████████▌                                                                                                | 768/5000 [02:41<20:04,  3.51it/s]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
